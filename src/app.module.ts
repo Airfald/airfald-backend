@@ -13,4 +13,5 @@ import modules from '@src/modules'
   controllers: [AppController],
   providers: [AppService],
 })
+
 export class AppModule {}

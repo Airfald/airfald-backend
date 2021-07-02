@@ -8,6 +8,7 @@ import { LoggerEntity } from '@src/entities/logger'
   imports: [TypeOrmModule.forFeature([LoggerEntity])],
   controllers: [LoggerController],
   providers: [ReportLoggerService],
+  exports: [ReportLoggerService]
 })
 
 export class LogerModule {}

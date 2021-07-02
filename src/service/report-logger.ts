@@ -27,4 +27,8 @@ export class ReportLoggerService {
       loggerInfo
     });
   }
+
+  testReport () {
+    return 'testReport'
+  }
 }

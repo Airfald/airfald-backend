@@ -35,9 +35,6 @@ In the field of programming a data transfer object (DTO[1][2]) is an object that
 
 ## 目的
 
-不是掌握所有知识点细节，而是了解这个开发流程。 道而不是术
-
-
 设计 =》 实现
 
 - 登录授权，权限设计
@@ -49,12 +46,33 @@ In the field of programming a data transfer object (DTO[1][2]) is an object that
 2. https://www.toimc.com/nestjs-example-project-4/
 
 
-
-
 ## 异常
 
 - http 请求异常统一filter处理
 - 代码异常 统一code码处理
+- auth jwt
+- swagger
+
+
+
+## ref & example
+
+https://docs.nestjs.cn/7/awesome
+
+<!-- 依赖注入 -->
+https://angular.cn/guide/dependency-injection-pattern
+
+
+## TODO
+
+- 登录授权，权限设计
+- auth jwt
+- swagger
+实现 base 类, entity => { create, update }, base controller => findOne, findAll, create, update, remove
+.git 先 rebase 再 merge
+- 分页
+
+
 
 
 

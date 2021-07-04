@@ -1,15 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column } from 'typeorm';
+import { BaseEntity } from '@src/entities/base'
 
 @Entity()
-export class UserEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class UserEntity extends BaseEntity {
   @Column()
-  name: boolean;
+  name: string;
 
   @Column({ default: false })
-  passWord: boolean;
+  passWord: string;
 
   @Column({ default: false })
   isAdmin: boolean;

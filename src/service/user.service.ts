@@ -1,5 +1,10 @@
 import { Repository } from 'typeorm';
-import { IPaginationQuery } from '@src/interface/common'
+
+export interface IPaginationQuery {
+  pageNumber: number
+  pageSize: number
+  data?: any
+}
 
 /**
  * 抽象CRUD操作基础服务
@@ -14,39 +19,37 @@ export abstract class BaseService<T> {
   }
 
   async delete(id: number) {
-    let removeData = await this._model.findOne({ where: { id } });
+    let remove = await this._model.findOne(id);
 
-    console.log('测试', removeData)
-    return await this._model.remove(removeData);
+    return await this._model.remove(remove);
   }
 
   async update(updateDto: any) {
-    let updateObj = await this._model.findOne({ where: { id: updateDto.id } });
+    let updateObj = await this._model.findOne(updateDto.id);
     let newUpdateObj = { ...updateObj, ...updateDto }
 
     return await this._model.save(newUpdateObj);
   }
 
   async detail(id: number) {
-    let obj = await this._model.findOne({ where: { id } });
+    let obj = await this._model.findOne(id);
 
     return obj
   }
 
   // take 和 skip 可能看起来像 limit 和 offset
-  async getList(query: IPaginationQuery<null>) {
-    const { pageNumber = 1, pageSize = 10 } = query
+  async getList(query: IPaginationQuery) {
+    const { pageNumber, pageSize } = query
 
-    const total = await this._model.count()
-
-    const result = await this._model
-    .createQueryBuilder()
-    .skip((pageNumber - 1) * pageSize)
-    .take(pageSize)
-    .getMany();
+    const [result, total] = await this._model.findAndCount(
+        {
+          take: pageSize,
+          skip: (pageSize - 1) * pageNumber
+        }
+    );
 
     return {
-        list: result,
+        data: result,
         count: total
     }
   }

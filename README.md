@@ -33,6 +33,11 @@ In the field of programming a data transfer object (DTO[1][2]) is an object that
 首先（如果您使用 TypeScript），我们需要确定 DTO（数据传输对象）模式。DTO是一个对象，它定义了如何通过网络发送数据。我们可以通过使用 TypeScript 接口（Interface）或简单的类（Class）来定义 DTO 模式。有趣的是，我们在这里推荐使用类。为什么？类是 JavaScript ES6 标准的一部分，因此它们在编译后的 JavaScript 中被保留为实际实体。另一方面，由于 TypeScript 接口在转换过程中被删除，所以 Nest 不能在运行时引用它们。这一点很重要，因为诸如管道（Pipe）之类的特性为在运行时访问变量的元类型提供更多的可能性。
 ```
 
+```
+客户端请求 ---> 中间件 ---> 守卫 ---> 拦截器之前 ---> 管道 ---> 控制器处理并响应 ---> 拦截器之后 ---> 过滤器
+```
+
+
 ## 目的
 
 设计 =》 实现
@@ -65,12 +70,71 @@ https://angular.cn/guide/dependency-injection-pattern
 
 ## TODO
 
-- 登录授权，权限设计
+<!-- - 登录授权，权限设计
 - auth jwt
-- swagger
-实现 base 类, entity => { create, update }, base controller => findOne, findAll, create, update, remove
-.git 先 rebase 再 merge
-- 分页
+- swagger -->
+
+<!-- https://blog.csdn.net/weixin_44828005/article/details/116108790 -->
+<!-- https://blog.csdn.net/weixin_44828005/article/details/115499297 -->
+
+```
+不通过注入的方式访问数据库
+
+import { Injectable } from '@nestjs/common';
+import { getConnection } from 'typeorm';
+import { UsersEntity } from './entities/user.entity';
+
+@Injectable()
+export class UserService {
+  async test() {
+  	使用封装好方法：
+    return await getConnection()
+      .getRepository(UsersEntity)
+      .find({ where: { id: 1 } });
+
+	使用createQueryBuilder：
+    return await getConnection()
+      .createQueryBuilder()
+      .select('user')
+      .from(UsersEntity, 'user')
+      .where('user.id = :id', { id: 1 })
+      .getOne();
+  }
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- 登录
+- crud
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

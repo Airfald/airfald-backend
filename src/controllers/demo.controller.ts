@@ -1,14 +1,17 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { DemoService } from '@src/service/demo.service';
+import { BaseControllers } from '@src/controllers/baseController'
 import { ReportLoggerService } from '@src/service/report-logger';
 
 // 路由前缀
 @Controller('demo')
-export class DemoController {
+export class DemoController extends BaseControllers {
   constructor(
     private readonly demoService: DemoService,
     private readonly reportLoggerService: ReportLoggerService
-  ) {}
+  ) {
+    super(demoService)
+  }
 
   // =============================测试多个数据库=========================================
   @Get('/findAllDemo')
@@ -40,20 +43,15 @@ export class DemoController {
     return this.demoService.getDemo();
   }
 
-  @Get('/save')
-  save(): any {
-    return this.demoService.create({} as any);
-  }
+  // @Get('/list')
+  // findAll(): any {
+  //   return this.demoService.findAll();
+  // }
 
-  @Get('/list')
-  findAll(): any {
-    return this.demoService.findAll();
-  }
-
-  @Get('/detail/:id')
-  getDetail(@Param('id') id): any {
-    return this.demoService.findOne(id);
-  }
+  // @Get('/detail/:id')
+  // getDetail(@Param('id') id): any {
+  //   return this.demoService.findOne(id);
+  // }
 
   @Get('/remove')
   remove(): any {

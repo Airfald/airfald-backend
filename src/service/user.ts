@@ -1,52 +1,26 @@
-import { Injectable, UseGuards } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { AuthGuard } from '@nestjs/passport'
 import { UserEntity } from '@src/entities/user';
 import { UserDto } from '@src/dto/user'
+import { BaseService } from '@src/service/baseService'
+
 
 @Injectable()
-export class UserService {
+export class UserService extends BaseService<UserEntity> {
   constructor(
     @InjectRepository(UserEntity)
     private repository: Repository<UserEntity>,
-  ) {}
+  ) {
+    super(repository)
+  }
 
-  @UseGuards(AuthGuard('local'))
-  login (user: any) {
-
+  findOne(userName: string, passWord: string) {
+    return this.repository.findOne({ where: { userName, passWord } })
   }
 
   create (createDto: UserDto) {
     return this.repository.save(createDto)
-  }
-
-  findOne (username, password): any {
-    // return this.repository.findOne({ where: { name: userName } })
-    return {
-      username,
-      password
-    }
-  }
-
-  update () {
-
-  }
-
-  detail () {
-
-  }
-
-  remove () {
-
-  }
-
-  getList () {
-
-  }
-
-  getCount () {
-
   }
 }
 

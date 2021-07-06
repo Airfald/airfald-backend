@@ -11,7 +11,7 @@ import { LocalStrategy } from './strategies/local.strategy';
   imports: [
     // 注入userService
     UserModule,
-    PassportModule.register({ defaultStrategy: 'jwt' }),
+    PassportModule,
     // 注入jwtservice
     JwtModule.register({
       secret: jwtConstants.secret,

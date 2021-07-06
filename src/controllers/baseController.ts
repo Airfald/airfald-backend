@@ -22,7 +22,7 @@ export abstract class BaseControllers {
     return this._service.create(createDto)
   }
 
-  @Get('/delete/:id')
+  @Post('/delete/:id')
   async delete(@Param('id') id: number) {
     return await this._service.delete(id);
   }

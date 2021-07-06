@@ -4,9 +4,9 @@ import { BaseEntity } from '@src/entities/base'
 @Entity()
 export class UserEntity extends BaseEntity {
   @Column()
-  name: string;
+  userName: string;
 
-  @Column({ default: false })
+  @Column()
   passWord: string;
 
   @Column({ default: false })

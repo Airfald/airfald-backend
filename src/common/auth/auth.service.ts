@@ -9,12 +9,9 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async validateUser(username: string, pass: string): Promise<any> {
-    const user = await this.usersService.findOne(username, pass);
-    // if (user && user.password === pass) {
-    //   const { password, ...result } = user;
-    //   return result;
-    // }
+  async validateUser(userName: string, passWord: string): Promise<any> {
+    const user = await this.usersService.findOne(userName, passWord);
+
     if (user) {
       return user;
     }
@@ -23,10 +20,10 @@ export class AuthService {
   }
 
   async login(user: any) {
-    console.log('测试 user', user)
-    this.validateUser(user.username, user.passWord)
-    const payload = { username: user.username, sub: user.userId };
-    // 找到用户并且穿件token
+    const userDto = await this.validateUser(user.username, user.password)
+
+    const payload = { username: userDto.userName, sub: userDto.id };
+    // 找到用户并且创建token
     return {
       access_token: this.jwtService.sign(payload),
     };

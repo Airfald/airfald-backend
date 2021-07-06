@@ -10,9 +10,12 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   }
 
   // 不用token时使用比如，login接口
-  async validate(username: string, password: string): Promise<any> {
-    console.log(username, password)
-    const user = await this.authService.validateUser(username, password);
+  // 用了passport 传参必须是 { username, password } 否则不会进入 validate 函数直接校验不通过。
+  // 优化： 直接拿中间件写检验而不是使用 passport 这样限制太死了。
+  async validate(userName: string, password: string): Promise<any> {
+    // console.log('测试', userName, password)
+    const user = await this.authService.validateUser(userName, password);
+
     if (!user) {
       throw new UnauthorizedException();
     }

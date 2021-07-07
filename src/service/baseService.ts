@@ -16,7 +16,6 @@ export abstract class BaseService<T> {
   async delete(id: number) {
     let removeData = await this._model.findOne({ where: { id } });
 
-    console.log('测试', removeData)
     return await this._model.remove(removeData);
   }
 
@@ -46,8 +45,8 @@ export abstract class BaseService<T> {
     .getMany();
 
     return {
-        list: result,
-        count: total
+      list: result,
+      count: total
     }
   }
 }

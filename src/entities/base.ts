@@ -7,8 +7,8 @@ export class BaseEntity {
   id: number;
 
   @CreateDateColumn({
-    type: "timestamp",
-    default: () => "CURRENT_TIMESTAMP(0)",
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(0)',
     precision: 0,
     transformer: {
       to: (value: string) => moment(value).format('YYYY-MM-DD hh:mm:ss'),
@@ -18,9 +18,9 @@ export class BaseEntity {
   public createdAt: Date;
 
   @UpdateDateColumn({
-    type: "timestamp",
-    default: () => "CURRENT_TIMESTAMP(0)",
-    onUpdate: "CURRENT_TIMESTAMP(0)",
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(0)',
+    onUpdate: 'CURRENT_TIMESTAMP(0)',
     precision: 0,
     transformer: {
       to: (value: string) => moment(value).format('YYYY-MM-DD hh:mm:ss'),

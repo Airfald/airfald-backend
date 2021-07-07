@@ -67,6 +67,7 @@ https://docs.nestjs.cn/7/awesome
 <!-- 依赖注入 -->
 https://angular.cn/guide/dependency-injection-pattern
 
+https://typeorm.io/#/connection/what-is-connection
 
 ## TODO
 
@@ -110,14 +111,6 @@ export class UserService {
 
 
 
-
-
-
-
-
-
-- 登录
-- crud
 
 
 

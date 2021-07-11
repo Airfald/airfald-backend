@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { UserService } from '@src/service/user';
 import { JwtService } from '@nestjs/jwt';
+import { ApiException } from '@src/common/filters/api-exception'
+import { ApiCode } from '@src/interface/common'
 
 @Injectable()
 export class AuthService {
@@ -16,7 +18,7 @@ export class AuthService {
       return user;
     }
 
-    return null;
+    throw new ApiException('姓名账号错误', ApiCode.CUSTIOM_CODE, 200)
   }
 
   async login(user: any) {
